@@ -45,6 +45,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'resque_spec'
 end
 
 group :development do

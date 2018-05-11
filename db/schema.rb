@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_08_175843) do
+ActiveRecord::Schema.define(version: 2018_05_11_210353) do
 
   create_table "keywords", force: :cascade do |t|
     t.string "word"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "result_keywords", force: :cascade do |t|
+    t.integer "keyword_id"
+    t.integer "result_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_result_keywords_on_keyword_id"
+    t.index ["result_id"], name: "index_result_keywords_on_result_id"
   end
 
   create_table "results", force: :cascade do |t|
@@ -28,13 +37,53 @@ ActiveRecord::Schema.define(version: 2018_05_08_175843) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "searches", force: :cascade do |t|
+  create_table "search_results", force: :cascade do |t|
+    t.integer "search_id"
+    t.integer "result_id"
+    t.boolean "keep"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["result_id"], name: "index_search_results_on_result_id"
+    t.index ["search_id"], name: "index_search_results_on_search_id"
+  end
+
+  create_table "search_terms", force: :cascade do |t|
+    t.integer "keyword_id"
+    t.integer "search_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_search_terms_on_keyword_id"
+    t.index ["search_id"], name: "index_search_terms_on_search_id"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.integer "topic_id"
+    t.date "date_searched"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_searches_on_topic_id"
+  end
+
+  create_table "supporting_docs", force: :cascade do |t|
+    t.integer "result_id"
+    t.integer "synth_content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["result_id"], name: "index_supporting_docs_on_result_id"
+    t.index ["synth_content_id"], name: "index_supporting_docs_on_synth_content_id"
+  end
+
+  create_table "synth_contents", force: :cascade do |t|
+    t.integer "topic_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_synth_contents_on_topic_id"
   end
 
   create_table "topics", force: :cascade do |t|
     t.string "name"
+    t.boolean "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
