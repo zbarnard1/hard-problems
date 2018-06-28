@@ -23,6 +23,7 @@ RSpec.describe DbpediaAdapter do
      "titlesnippet":"<span class=\"searchmatch\">Horse</span> breeding",
      "url":"/titles/Horse_breeding"}
   ]}
+  let(:single_result_data) {'[{"label":"Horse","url":"/titles/Horse","snippet":"live in the wild as feral <span class=\"searchmatch\">horses</span>. These feral populations are not true wild <span class=\"searchmatch\">horses</span>, as this term is used to describe <span class=\"searchmatch\">horses</span> that have never been domesticated}]'}
 
 
   it 'should pass the smoke test' do
@@ -44,13 +45,14 @@ RSpec.describe DbpediaAdapter do
   end
 end
 
-  it 'checks that the local Dbpedialite is running'
-
+  
   # internal behavior
 
-  it 'uses the configuration information for the local dbpedialite program'
+  xit 'uses the configuration information for the local dbpedialite program'
 
-  it 'instantiates Result objects'
+  xit 'instantiates Result objects from a string' do
+    expect(dbpa.send(:make_result, single_result_data)).to be_an_instance_of(Result)
+  end
 
   # external behavior
 
@@ -72,7 +74,7 @@ end
       expect(dbpa.send(:create_url, 'horse')).to eq(search_url_term_eq + 'horse')
     end
 
-    it 'returns an array of Results' do
+    xit 'returns an array of Results' do
       stub_request(:get, search_url_term_eq + 'horse').
         to_return(status: 200, body: result_data.to_json, headers: {})
 

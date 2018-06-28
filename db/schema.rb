@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_11_210353) do
+ActiveRecord::Schema.define(version: 2018_06_27_200007) do
 
   create_table "keywords", force: :cascade do |t|
     t.string "word"
@@ -29,12 +29,17 @@ ActiveRecord::Schema.define(version: 2018_05_11_210353) do
 
   create_table "results", force: :cascade do |t|
     t.string "url"
-    t.date "date_retrieved"
-    t.string "body"
     t.string "author"
     t.date "published_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "snippet"
+    t.string "title"
+    t.string "abstract"
+    t.string "full_text"
+    t.integer "search_id"
+    t.string "page_id"
+    t.index ["search_id"], name: "index_results_on_search_id"
   end
 
   create_table "search_results", force: :cascade do |t|

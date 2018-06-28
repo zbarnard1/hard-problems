@@ -12,6 +12,10 @@ class DbpediaAdapter
     end
   end
 
+  def self.expand_result(expand_url, result)
+
+  end
+
 private
 
   def create_url(term)
